@@ -10,7 +10,7 @@ import typing
 from redbird.oper import Between, In, Operation, skip
 from redbird.packages import sqlalchemy, import_exists
 
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 
 try:

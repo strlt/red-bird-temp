@@ -10,5 +10,5 @@ from setuptools import setup
 
 setup(
     name="redbird",
-    install_requires = ["pydantic", "typing_extensions"],
+    install_requires = ["pydantic>=2.0", "typing_extensions"],
 )
