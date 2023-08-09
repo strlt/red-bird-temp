@@ -7,6 +7,7 @@ from dataclasses import dataclass
 import warnings
 
 from pydantic.v1 import BaseModel, Field, validator
+from pydantic import BaseModel as BaseModelV2
 
 from redbird.exc import ConversionWarning, DataToItemError, KeyFoundError, ItemToDataError, _handle_conversion_error
 from redbird.utils.case import to_case
@@ -290,6 +291,8 @@ class BaseRepo(ABC, BaseModel):
         elif isinstance(item, BaseModel):
             # Pydantic model
             return item.dict(exclude_unset=exclude_unset)
+        elif isinstance(item, BaseModelV2):
+            return item.model_dump(exclude_unset=exclude_unset)
         else:
             return dict(**item)
 
