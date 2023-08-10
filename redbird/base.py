@@ -5,6 +5,7 @@ from textwrap import dedent, indent, shorten
 from typing import Any, ClassVar, Dict, Generator, Iterator, List, Mapping, Optional, Tuple, Type, TypeVar, Union
 from dataclasses import dataclass
 import warnings
+import json
 
 from pydantic.v1 import BaseModel, Field, validator
 from pydantic import BaseModel as BaseModelV2
@@ -292,7 +293,9 @@ class BaseRepo(ABC, BaseModel):
             # Pydantic model
             return item.dict(exclude_unset=exclude_unset)
         elif isinstance(item, BaseModelV2):
-            return item.model_dump(exclude_unset=exclude_unset)
+            json_raw = item.model_dump_json(exclude_unset=exclude_unset)
+            return json.loads(json_raw)
+        
         else:
             return dict(**item)
 
